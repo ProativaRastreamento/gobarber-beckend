@@ -34,6 +34,7 @@ usersRouter.patch(
             avatarFileName: request.file.filename,
         });
         delete user.password;
+        console.log(request);
         return response.json(user);
     },
 );
