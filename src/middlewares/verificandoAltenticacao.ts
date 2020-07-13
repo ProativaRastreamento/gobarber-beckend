@@ -22,9 +22,8 @@ export default function verificandoAltenticacao(
 
     try {
         const decoded = verify(token, auphConfig.jwt.secret);
-        console.log(decoded)
         const { sub } = decoded as TokenPayload;
-
+        console.log(request);
         request.user = {
             id: sub,
         };

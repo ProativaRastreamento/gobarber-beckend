@@ -9,7 +9,9 @@ const usersRouter = Router();
 const upload = multer(uploadConfig);
 
 usersRouter.post('/', async (request, response) => {
+
     const { name, email, password } = request.body;
+    console.log(request);
 
     const createUser = new CreatedeUsersService();
 
@@ -29,12 +31,13 @@ usersRouter.patch(
     upload.single('avatar'),
     async (request, response) => {
         const updateUserAvatar = new UpdateUserAvatarService();
+
         const user = await updateUserAvatar.execute({
             user_id: request.user.id,
             avatarFileName: request.file.filename,
         });
         delete user.password;
-        console.log(request);
+
         return response.json(user);
     },
 );
