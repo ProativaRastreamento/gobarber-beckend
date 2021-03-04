@@ -6,12 +6,12 @@
     "password": 99827972,
     "database": "gobarber",
     "entities": [
-        "./src/models/*.ts"
+        "./src/modules/**/infra/typeorm/entities/*.ts"
     ],
     "migrations":[
-        "./src/database/migrations/*.ts"
+        ".src/infra/typeorm/migrations/*.ts"
     ],
     "cli": {
-        "migrations": "./src/database/migrations"
+        "migrationsDir": ".src/infra/typeorm/migrations"
     }
 }
