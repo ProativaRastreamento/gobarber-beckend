@@ -2,7 +2,7 @@ import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppRrror';
 import IUsersRepository from '../repositories/IUserRepository';
-import IHashProviders from '../providers/HasProvider/models/IHashProviders';
+import IHashProviders from '../providers/HashProvider/models/IHashProviders';
 
 import User from '../infra/typeorm/entities/User';
 

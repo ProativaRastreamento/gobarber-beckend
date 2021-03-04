@@ -30,6 +30,7 @@
     ],
 
     "rules": {
+      "class-methods-use-this": "off",
       "@typescript-eslint/no-unsed-vars":"off",
         "no-underscore-dangle":"off",
         "prettier/prettier": "error",

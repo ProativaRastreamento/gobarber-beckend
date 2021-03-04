@@ -6,7 +6,7 @@ import AppError from '@shared/errors/AppRrror';
 import User from '@modules/users/infra/typeorm/entities/User';
 import IUsersRepository from '../repositories/IUserRepository';
 import UsersRepository from '../infra/typeorm/repositories/UsersRepository';
-import IHashProviders from '../providers/HasProvider/models/IHashProviders';
+import IHashProviders from '../providers/HashProvider/models/IHashProviders';
 
 interface IRequest {
   email: string;
@@ -23,7 +23,7 @@ class sessionsUserService {
     @inject(UsersRepository)
     private usersRepository: IUsersRepository,
 
-    @inject('HasProvider')
+    @inject('HashProvider')
     private hashProviders: IHashProviders,
   ) {}
 
