@@ -1,5 +1,5 @@
 import IUsersRepository from '@modules/users/repositories/IUserRepository';
-import ICreateUsertDTO from '@modules/users/dtos/ICreateUserDTO';
+import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
 
 import { uuid } from 'uuidv4';
 import User from '../../infra/typeorm/entities/User';
@@ -19,7 +19,7 @@ class UsersRepository implements IUsersRepository {
     return findUser;
   }
 
-  public async create(userData: ICreateUsertDTO): Promise<User> {
+  public async create(userData: ICreateUserDTO): Promise<User> {
     const user = new User();
     Object.assign(user, { id: uuid() }, userData);
 

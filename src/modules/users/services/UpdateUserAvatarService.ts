@@ -1,9 +1,9 @@
-import path from 'path';
 import { injectable, inject } from 'tsyringe';
-import fs from 'fs';
+
 import User from '@modules/users/infra/typeorm/entities/User';
-import uploadConfig from '@config/upload';
+
 import AppError from '@shared/errors/AppRrror';
+import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
 import IUsersRepository from '../repositories/IUserRepository';
 
 interface IRequest {
@@ -15,6 +15,9 @@ class UpdateUserAvatarService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
+
+    @inject('StorageProvider')
+    private StorageProvider: IStorageProvider,
   ) {}
 
   public async execute({ user_id, avatarFileName }: IRequest): Promise<User> {
@@ -24,16 +27,13 @@ class UpdateUserAvatarService {
       throw new AppError('Este usuario não possue Avatar.', 401);
     }
     if (user.avatar) {
-      // Buscando pelo arquivo de avatar do usuario
-      const userAvatarFilePath = path.join(uploadConfig.directory, user.avatar);
-      // Verificando se arquivo existe
-      const userAvatarFileExist = await fs.promises.stat(userAvatarFilePath);
-      // Se existir vou apagar.
-      if (userAvatarFileExist) {
-        await fs.promises.unlink(userAvatarFilePath);
-      }
+      await this.StorageProvider.deleteFile(user.avatar);
     }
-    user.avatar = avatarFileName;
+
+    const filename = await this.StorageProvider.saveFile(avatarFileName);
+
+    user.avatar = filename;
+
     await this.usersRepository.save(user);
 
     return user;
